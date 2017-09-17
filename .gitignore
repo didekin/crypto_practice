@@ -1,0 +1,14 @@
+# Idea files
+/**/*.iml
+.idea/
+
+# Mac files
+.DS_Store
+
+# Gradle root files
+.gradle/
+gradle.properties
+
+# Build and logs
+build/
+
