@@ -2,7 +2,7 @@ package com.didekin.tutor.crypto.api;
 
 import java.math.BigInteger;
 
-import static com.didekin.tutor.crypto.paarpelzlbook.EllipticCurveSum.sumPoints;
+import static com.didekin.tutor.crypto.computation.EllipticCurveSum.sumPoints;
 
 /**
  * User: pedro
