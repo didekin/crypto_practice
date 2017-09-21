@@ -1,9 +1,9 @@
-package com.didekin.tutor.crypto.vignere;
+package com.didekin.tutor.crypto.vigenere;
 
 import org.junit.Test;
 
-import static com.didekin.tutor.crypto.vignere.ShiftCipherBroker.decryptCipherFromShift;
-import static com.didekin.tutor.crypto.vignere.ShiftCipherBroker.decryptCipheredText;
+import static com.didekin.tutor.crypto.vigenere.ShiftCipherBreaker.decryptCipherFromShift;
+import static com.didekin.tutor.crypto.vigenere.ShiftCipherBreaker.decryptCipheredText;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  * Date: 20/09/17
  * Time: 14:24
  */
-public class ShiftCipherBrokerTest {
+public class ShiftCipherBreakerTest {
 
     @Test
     public void test_DecryptCipherFromShift() throws Exception

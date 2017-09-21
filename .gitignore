@@ -11,4 +11,5 @@ gradle.properties
 
 # Build and logs
 build/
+out/
 

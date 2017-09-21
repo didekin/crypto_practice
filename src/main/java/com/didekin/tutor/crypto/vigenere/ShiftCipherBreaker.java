@@ -1,4 +1,4 @@
-package com.didekin.tutor.crypto.vignere;
+package com.didekin.tutor.crypto.vigenere;
 
 import static java.util.stream.Collectors.joining;
 
@@ -7,7 +7,7 @@ import static java.util.stream.Collectors.joining;
  * Date: 17/09/17
  * Time: 15:20
  */
-class ShiftCipherBroker {
+class ShiftCipherBreaker {
 
     private static int getShiftFromProb(double[] probabilities)
     {
@@ -29,7 +29,7 @@ class ShiftCipherBroker {
     static String decryptCipherFromShift(String cipheredText, int shift)
     {
         return cipheredText.chars()
-                .mapToObj(EnglishLetter::getStringCharFromAsciiDec)
+                .mapToObj(EnglishLetter::getLetterLowerCaseFromAsciiDec)
                 .mapToInt(EnglishLetter::getOrderFromLetterStr)
                 .map(order -> EnglishLetter.doModuloAlphabet(order - shift))
                 .mapToObj(EnglishLetter::getLetterStrFromOrder)
@@ -41,7 +41,7 @@ class ShiftCipherBroker {
         int shift = getShiftFromProb(EnglishLetter.doProbArrayFromText(cipheredText));
 
         return cipheredText.chars()
-                .mapToObj(EnglishLetter::getStringCharFromAsciiDec)
+                .mapToObj(EnglishLetter::getLetterLowerCaseFromAsciiDec)
                 .mapToInt(EnglishLetter::getOrderFromLetterStr)
                 .map(order -> EnglishLetter.doModuloAlphabet(order - shift))
                 .mapToObj(EnglishLetter::getLetterStrFromOrder)
