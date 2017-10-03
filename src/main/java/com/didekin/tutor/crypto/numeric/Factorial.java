@@ -1,4 +1,4 @@
-package com.didekin.tutor.crypto.helper;
+package com.didekin.tutor.crypto.numeric;
 
 import java.math.BigInteger;
 

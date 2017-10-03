@@ -1,6 +1,6 @@
 package com.didekin.tutor.crypto.computation;
 
-import com.didekin.tutor.crypto.api.Duple;
+import com.didekin.tutor.crypto.api.BigIntDuple;
 import com.didekin.tutor.crypto.api.Polynomial;
 
 import java.math.BigInteger;
@@ -14,7 +14,7 @@ import static java.math.BigInteger.valueOf;
  */
 public class EllipticCurveSum {
 
-    public static Duple sumPoints(Duple point1, Duple point2, Polynomial polynomial, BigInteger modulo)
+    public static BigIntDuple sumPoints(BigIntDuple point1, BigIntDuple point2, Polynomial polynomial, BigInteger modulo)
     {
         BigInteger s;
 
@@ -26,10 +26,10 @@ public class EllipticCurveSum {
 
         BigInteger newX = s.pow(2).mod(modulo).subtract(point1.x).mod(modulo).subtract(point2.x).mod(modulo);
         BigInteger newY = s.multiply(point1.x.subtract(newX).mod(modulo)).mod(modulo).subtract(point1.y).mod(modulo);
-        return new Duple(newX, newY);
+        return new BigIntDuple(newX, newY);
     }
 
-    static BigInteger getS(Duple point1, Duple point2, Polynomial polynomial, BigInteger modulo)
+    static BigInteger getS(BigIntDuple point1, BigIntDuple point2, Polynomial polynomial, BigInteger modulo)
     {
         return point2.y.subtract(point1.y)
                 .mod(modulo)
@@ -37,7 +37,7 @@ public class EllipticCurveSum {
                 .mod(modulo);
     }
 
-    static BigInteger getSForDouble(Duple point1, Polynomial polynomial, BigInteger modulo)
+    static BigInteger getSForDouble(BigIntDuple point1, Polynomial polynomial, BigInteger modulo)
     {
         return valueOf(3).multiply(point1.x.pow(2))
                 .mod(modulo)
@@ -47,10 +47,10 @@ public class EllipticCurveSum {
                 .mod(modulo);
     }
 
-    static int getOrderPoint(Duple point, Polynomial polynomial, BigInteger modulo)
+    static int getOrderPoint(BigIntDuple point, Polynomial polynomial, BigInteger modulo)
     {
         int order = 1;
-        Duple sum = point;
+        BigIntDuple sum = point;
 
         do {
             System.out.printf("(%d,%d)%n", sum.x, sum.y);
@@ -61,10 +61,10 @@ public class EllipticCurveSum {
         return ++order;
     }
 
-    static Duple fastMultiplication(Duple point, Polynomial polynomial, BigInteger modulo, BigInteger factor)
+    static BigIntDuple fastMultiplication(BigIntDuple point, Polynomial polynomial, BigInteger modulo, BigInteger factor)
     {
         String bitString = factor.toString(2);
-        Duple multiplication = point;
+        BigIntDuple multiplication = point;
         for (int i = 1; i < bitString.length(); i++) {
             multiplication = multiplication.sumPoint(multiplication, polynomial, modulo);
             if (bitString.charAt(i) == '1') {

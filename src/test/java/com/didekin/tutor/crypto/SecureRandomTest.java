@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-import static com.didekin.tutor.crypto.helper.ValidaPattern.PASSWORD;
+import static com.didekin.tutor.crypto.charhelper.ValidaPattern.PASSWORD;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

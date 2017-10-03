@@ -6,7 +6,7 @@ package com.didekin.tutor.crypto.api;
  * Time: 18:51
  */
 public interface Polynomial {
-    int check(Duple point);
+    int check(BigIntDuple point);
     int xCoefficient();
     int bCoefficient();
 }

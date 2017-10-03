@@ -1,5 +1,6 @@
 package com.didekin.tutor.crypto.vigenere;
 
+import static com.didekin.tutor.crypto.vigenere.EnglishLetter.numberEnglishLetters;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -13,10 +14,10 @@ class ShiftCipherBreaker {
     {
         int shift = 0;
         double lastMinDiff = 1;
-        for (int k = 0; k < 26; ++k) {
+        for (int k = 0; k < numberEnglishLetters; ++k) {
             double sumK = 0;
-            for (int i = 0; i < 26; ++i) {
-                sumK += EnglishLetter.values()[i].probability * probabilities[(i + k) % 26];
+            for (int i = 0; i < numberEnglishLetters; ++i) {
+                sumK += EnglishLetter.values()[i].probability * probabilities[(i + k) % numberEnglishLetters];
             }
             if (Math.abs(sumK - EnglishLetter.squareOriginalProb) < lastMinDiff) {
                 lastMinDiff = Math.abs(sumK - EnglishLetter.squareOriginalProb);

@@ -2,19 +2,16 @@ package com.didekin.tutor.crypto.vigenere;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
 import static java.lang.Math.pow;
 import static java.util.Arrays.stream;
+import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
-import static java.util.stream.Collectors.joining;
 
 /**
  * User: pedro@didekin
@@ -50,23 +47,29 @@ public enum EnglishLetter {
     y("y", .02, 24),
     z("z", .001, 25),;
 
-    static final BigInteger baseModulo = BigInteger.valueOf(26);
+    public static final int numberEnglishLetters = 26;
+    static final BigInteger baseModulo = BigInteger.valueOf(numberEnglishLetters);
     static final double squareOriginalProb = stream(EnglishLetter.values()).mapToDouble(EnglishLetter::getProbability).map(prob -> pow(prob, 2)).sum();
 
-    static final Map<Integer, String> fromOrderToLetter = new HashMap<>(26);
+    static final Map<Integer, EnglishLetter> fromOrderToLetterEnum = new HashMap<>(numberEnglishLetters);
 
     static {
         for (EnglishLetter letterEnum : EnglishLetter.values()) {
-            fromOrderToLetter.putIfAbsent(letterEnum.order, letterEnum.letter);
+            fromOrderToLetterEnum.putIfAbsent(letterEnum.order, letterEnum);
         }
     }
 
     static String getLetterStrFromOrder(int order)
     {
-        return fromOrderToLetter.get(order);
+        return fromOrderToLetterEnum.get(order).letter;
     }
 
-    static final Map<String, Integer> fromLetterToOrder = new HashMap<>(26);
+    static double getLetterProbFromOrder(int order)
+    {
+        return fromOrderToLetterEnum.get(order).probability;
+    }
+
+    static final Map<String, Integer> fromLetterToOrder = new HashMap<>(numberEnglishLetters);
 
     static {
         for (EnglishLetter letterEnum : EnglishLetter.values()) {
@@ -79,7 +82,7 @@ public enum EnglishLetter {
         return fromLetterToOrder.get(letter);
     }
 
-    final String letter;
+    public final String letter;
     final double probability;
     final int order;
 
@@ -105,122 +108,37 @@ public enum EnglishLetter {
         return letter.charAt(0);
     }
 
-    int doXor(EnglishLetter letter) throws UnsupportedEncodingException
+    public int doXor(EnglishLetter letter) throws UnsupportedEncodingException
     {
         return getAsciiDecimalFromLetter() ^ letter.getAsciiDecimalFromLetter();
     }
 
     // =================================== STATIC METHODS  =====================================
 
-    // ================= Conversions  =================
-
-    /**
-     * It returns a decimal integer representation of an ASCII character, passed as a hexadecimal string.
-     *
-     * @param hexadecimalLetter: hexadecimal string representation of a ASCII char, without prefix '0x'.
-     */
-    static int getAsciiDecimalFromHexChar(String hexadecimalLetter)
-    {
-        return Integer.parseInt(hexadecimalLetter, 16);
-    }
-
-    /**
-     * Invariants:
-     * 1. The length of the initial sequence is an even number.
-     * @param hexCharSequence : concatenation of characters encoding as hexadecimal numbers with two digits.
-     * @return an array with ASCII characters encoding as decimal integers.
-     */
-    static List<Character> getLettersArrFromHexString(String hexCharSequence)
-    {
-        List<Character>  letters = new ArrayList<>(hexCharSequence.length()/2);
-        for (int i = 0; i <= hexCharSequence.length() - 2; i += 2){
-            letters.add((char) getAsciiDecimalFromHexChar(hexCharSequence.substring(i,i+2)));
-        }
-        return letters;
-    }
-
-    /**
-     * It returns an hexadecimal string representation of an ASCII character passed as a symbol.
-     *
-     * @param charToHexString: symbolic representation of a ASCII char.
-     */
-    static String getAsciiHexStrFromSymbolChar(String charToHexString) throws UnsupportedEncodingException
-    {
-        return Integer.toHexString(getAsciiDecimalFromLetter(charToHexString));
-    }
-
-    /**
-     * It returns an hexadecimal string representation of a text passed as symbolic characters.
-     *
-     * @param textToHexString: hexadecimal string representation of a ASCII char.
-     * @return a concatenation of the hexadecimal string representations of each ASCII character in the text passed as parameter.
-     */
-    static String getAsciiHexStrFromStrText(String textToHexString)
-    {
-        return "0x".concat(textToHexString.chars().mapToObj(Integer::toHexString).map(String::toUpperCase).collect(joining()));
-    }
-
-    /**
-     * @param letter: hexadecimal string representation of a ASCII char.
-     * @return a decimal integer representation of the ASCII character passed as a symbol.
-     */
-    static int getAsciiDecimalFromLetter(String letter) throws UnsupportedEncodingException
-    {
-        return letter.getBytes("US-ASCII")[0];
-    }
-
-    /**
-     * @param asciiCharDecimalInt: decimal integer representation of an ASCII character.
-     * @return a symbol representation of the ASCII character passed as an integer.
-     */
-    static String getLetterLowerCaseFromAsciiDec(int asciiCharDecimalInt)
-    {
-        return new String(new byte[]{(byte) asciiCharDecimalInt}).toLowerCase();
-    }
-
-    // ================= Operations  =================
-
     static int doModuloAlphabet(int orderLetter)
     {
         return BigInteger.valueOf(orderLetter).mod(baseModulo).intValue();
     }
 
-    static int doModWithBase(int intToModulo, int base)
-    {
-        return BigInteger.valueOf(intToModulo).mod(BigInteger.valueOf(base)).intValue();
-    }
-
-    static int doXor(int asciiOne, int asciiTwo)
-    {
-        return asciiOne ^ asciiTwo;
-    }
-
     /**
-     * @param plainText:        the text, as a symbols string, to be xor.
-     * @param asciiHexArrayKey: an hexadecimal string representation of the key to be used.
-     * @return a string with the hexadecimal representation of the xor result for each of the characters in the plainText.
+     * @param asciiCharDecimal: decimal integer representation of an ASCII character.
+     * @return a symbol representation of the ASCII character passed as an integer.
      */
-    static String doXorWithHexStrKey(String plainText, String[] asciiHexArrayKey)
+    public static String getLetterLowerCaseFromAsciiDec(int asciiCharDecimal)
     {
-        int[] asciiIntArrayText = plainText.chars().toArray();
-        int[] asciiIntArrayKey = Arrays.stream(asciiHexArrayKey).mapToInt(EnglishLetter::getAsciiDecimalFromHexChar).toArray();
-        int[] xorArray = new int[asciiIntArrayText.length];
-        for (int i = 0; i < asciiIntArrayText.length; ++i) {
-            xorArray[i] = doXor(asciiIntArrayText[i], asciiIntArrayKey[doModWithBase(i, asciiIntArrayKey.length)]);
-        }
-        return Arrays.stream(xorArray)
-                .mapToObj(Integer::toHexString).map(String::toUpperCase)
-                .map(string -> string.length() != 2 ? "0".concat(string) : string)
-                .collect(joining());
+        return new String(new byte[]{(byte) asciiCharDecimal}).toLowerCase();
     }
 
     /**
+     * Invariants:
+     * 1. the text is composed exclusively of letters, either in upper or lower case.
+     * <p>
      * Return a 26 size array with the probability distribution of each letter in the text.
      * Probability == 0 for no present letters.
      */
-    static double[] doProbArrayFromText(String text)
+    public static double[] doProbArrayFromText(String text)
     {
-        SortedMap<String, Long> freqDistrib = text.chars().mapToObj(EnglishLetter::getLetterLowerCaseFromAsciiDec).collect(groupingBy(String::toLowerCase, TreeMap::new, counting()));
+        SortedMap<String, Long> freqDistrib = text.chars().mapToObj(EnglishLetter::getLetterLowerCaseFromAsciiDec).collect(groupingBy(identity(), TreeMap::new, counting()));
         for (EnglishLetter englishLetter : values()) {
             freqDistrib.putIfAbsent(englishLetter.letter, 0L);
         }

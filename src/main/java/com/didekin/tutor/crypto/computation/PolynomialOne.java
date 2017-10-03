@@ -1,6 +1,6 @@
 package com.didekin.tutor.crypto.computation;
 
-import com.didekin.tutor.crypto.api.Duple;
+import com.didekin.tutor.crypto.api.BigIntDuple;
 import com.didekin.tutor.crypto.api.Polynomial;
 
 import static java.math.BigInteger.valueOf;
@@ -22,7 +22,7 @@ class PolynomialOne implements Polynomial {
     }
 
     @Override
-    public int check(Duple point)
+    public int check(BigIntDuple point)
     {
         final int modulo = 7;
         return point.y.pow(2).subtract(point.x.pow(3)).subtract(point.x.multiply(valueOf(xCoefficient))).subtract

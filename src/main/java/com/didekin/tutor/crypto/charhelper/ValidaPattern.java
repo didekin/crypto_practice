@@ -1,4 +1,4 @@
-package com.didekin.tutor.crypto.helper;
+package com.didekin.tutor.crypto.charhelper;
 
 import java.util.regex.Pattern;
 
