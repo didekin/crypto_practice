@@ -32,7 +32,7 @@ public class CharManipulator {
      * 1. The length of the initial sequence is an even number.
      *
      * @param hexCharSequence : concatenation of characters encoding as hexadecimal numbers with two digits.
-     * @return an array with ASCII characters encoding as decimal integers.
+     * @return a list with ASCII characters encoding as decimal integers.
      */
     public static List<Character> getAsciiDecimalCharListFromHexCharsSeq(String hexCharSequence)
     {
