@@ -65,7 +65,7 @@ class OneTimePad {
     {
         byte[] encryptedBytes = encryptedText.getBytes("US-ASCII");
         byte[] deencrytedBytes = new byte[encryptedBytes.length];
-        for (int i = 0; i < deencrytedBytes.length; ++i){
+        for (int i = 0; i < deencrytedBytes.length; ++i) {
             deencrytedBytes[i] = (byte) (encryptedBytes[i] ^ byteArrayKey[i]);
         }
         return new String(deencrytedBytes, "US-ASCII");

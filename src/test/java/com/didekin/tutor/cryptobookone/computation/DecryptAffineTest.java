@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * User: pedro@didekin
@@ -15,15 +15,17 @@ import static org.junit.Assert.*;
 public class DecryptAffineTest {
 
     @Test
-    public void sortAbecedario(){
+    public void sortAbecedario()
+    {
         final char[] beforeAbcd = DecryptAffine.abecedario;
         Arrays.sort(DecryptAffine.abecedario);
         assertThat(new String(DecryptAffine.abecedario), is(new String(beforeAbcd)));
     }
 
     @Test
-    public void exercise_1_11(){
-        DecryptAffine decryptor = new DecryptAffine(15,22);
+    public void exercise_1_11()
+    {
+        DecryptAffine decryptor = new DecryptAffine(15, 22);
         String decrypted = decryptor.decrypt("falszztysyjzyjkywjrztyjztyynaryjkyswarztyegyyj");
         assertThat(decrypted.length() > 0, is(true));
     }

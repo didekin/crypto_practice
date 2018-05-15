@@ -103,7 +103,7 @@ public class CharManipulatorTest {
         assertThat(xorCharArrayWithKeyArray(sourceIntArray, keyIntArray)[1], is(96));
         assertThat(xorCharArrayWithKeyArray(sourceIntArray, keyIntArray)[2], is(0));
         assertThat(xorCharArrayWithKeyArray(sourceIntArray, keyIntArray)[3], is(3));
-        assertThat(xorCharArrayWithKeyArray(sourceIntArray,keyIntArray)[4], is(159));
+        assertThat(xorCharArrayWithKeyArray(sourceIntArray, keyIntArray)[4], is(159));
     }
 
     @Test

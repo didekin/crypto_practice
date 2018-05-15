@@ -5,7 +5,7 @@ import org.junit.Test;
 import static com.didekin.tutor.cryptobookone.vigenere.ShiftCipherBreaker.decryptCipherFromShift;
 import static com.didekin.tutor.cryptobookone.vigenere.ShiftCipherBreaker.decryptCipheredText;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * User: pedro@didekin

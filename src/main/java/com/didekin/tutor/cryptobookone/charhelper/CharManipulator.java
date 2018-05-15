@@ -116,7 +116,7 @@ public class CharManipulator {
                 .mapToObj(Integer::toHexString).map(String::toUpperCase)
                 .map(string -> string.length() == 1 ? "0".concat(string) : string)
                 .peek(stringHex -> {
-                    if (stringHex.length() != 2){
+                    if (stringHex.length() != 2) {
                         throw new IllegalArgumentException();
                     }
                 })

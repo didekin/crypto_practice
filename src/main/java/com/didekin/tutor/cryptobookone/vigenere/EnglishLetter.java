@@ -52,6 +52,7 @@ public enum EnglishLetter {
     static final double squareOriginalProb = stream(EnglishLetter.values()).mapToDouble(EnglishLetter::getProbability).map(prob -> pow(prob, 2)).sum();
 
     static final Map<Integer, EnglishLetter> fromOrderToLetterEnum = new HashMap<>(numberEnglishLetters);
+    static final Map<String, Integer> fromLetterToOrder = new HashMap<>(numberEnglishLetters);
 
     static {
         for (EnglishLetter letterEnum : EnglishLetter.values()) {
@@ -59,27 +60,10 @@ public enum EnglishLetter {
         }
     }
 
-    static String getLetterStrFromOrder(int order)
-    {
-        return fromOrderToLetterEnum.get(order).letter;
-    }
-
-    static double getLetterProbFromOrder(int order)
-    {
-        return fromOrderToLetterEnum.get(order).probability;
-    }
-
-    static final Map<String, Integer> fromLetterToOrder = new HashMap<>(numberEnglishLetters);
-
     static {
         for (EnglishLetter letterEnum : EnglishLetter.values()) {
             fromLetterToOrder.putIfAbsent(letterEnum.letter, letterEnum.order);
         }
-    }
-
-    static int getOrderFromLetterStr(String letter)
-    {
-        return fromLetterToOrder.get(letter);
     }
 
     public final String letter;
@@ -93,27 +77,20 @@ public enum EnglishLetter {
         order = orderIn;
     }
 
-    public double getProbability()
+    static String getLetterStrFromOrder(int order)
     {
-        return probability;
+        return fromOrderToLetterEnum.get(order).letter;
     }
 
-    int getAsciiDecimalFromLetter() throws UnsupportedEncodingException
+    static double getLetterProbFromOrder(int order)
     {
-        return letter.getBytes("US-ASCII")[0];
+        return fromOrderToLetterEnum.get(order).probability;
     }
 
-    char getCharFromLetter()
+    static int getOrderFromLetterStr(String letter)
     {
-        return letter.charAt(0);
+        return fromLetterToOrder.get(letter);
     }
-
-    public int doXor(EnglishLetter letter) throws UnsupportedEncodingException
-    {
-        return getAsciiDecimalFromLetter() ^ letter.getAsciiDecimalFromLetter();
-    }
-
-    // =================================== STATIC METHODS  =====================================
 
     static int doModuloAlphabet(int orderLetter)
     {
@@ -143,5 +120,27 @@ public enum EnglishLetter {
             freqDistrib.putIfAbsent(englishLetter.letter, 0L);
         }
         return freqDistrib.values().stream().mapToDouble(value -> ((double) value) / text.length()).toArray();
+    }
+
+    public double getProbability()
+    {
+        return probability;
+    }
+
+    // =================================== STATIC METHODS  =====================================
+
+    int getAsciiDecimalFromLetter() throws UnsupportedEncodingException
+    {
+        return letter.getBytes("US-ASCII")[0];
+    }
+
+    char getCharFromLetter()
+    {
+        return letter.charAt(0);
+    }
+
+    public int doXor(EnglishLetter letter) throws UnsupportedEncodingException
+    {
+        return getAsciiDecimalFromLetter() ^ letter.getAsciiDecimalFromLetter();
     }
 }

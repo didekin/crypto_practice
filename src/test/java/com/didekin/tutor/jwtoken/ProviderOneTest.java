@@ -1,4 +1,4 @@
-package com.didekin.tutor.cipher;
+package com.didekin.tutor.jwtoken;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,14 +22,13 @@ import static org.junit.Assert.assertThat;
 public class ProviderOneTest {
 
     private ProviderOne providerOne;
-    private List<Provider> installedProvs;
 
     @Before
     public void setUp()
     {
         providerOne = new ProviderOne();
-        installedProvs = asList(getProviders());
-        assertThat(installedProvs, hasItem(hasProperty("name", is("BC"))));
+        List<Provider> installedProvs = asList(getProviders());
+        assertThat(installedProvs, hasItem(hasProperty("name", is("SunJSSE"))));
 
         for (Provider provider : installedProvs) {
             System.out.printf("%s:  %s%n", provider.getName(), provider.getInfo());
@@ -49,7 +48,7 @@ public class ProviderOneTest {
                 key = key.substring("Alg.Alias".length() + 1);
             }
             name = key.substring(key.substring(0, key.indexOf('.')).length() + 1);
-            System.out.printf("Service: %s%n",(key.substring(0, key.indexOf('.')) + ": " + name));
+            System.out.printf("Service: %s%n", (key.substring(0, key.indexOf('.')) + ": " + name));
         }
     }
 }

@@ -7,6 +7,11 @@ package com.didekin.tutor.cryptobookone.computation;
  */
 public class EuclidesOne {
 
+    public static void main(String[] args)
+    {
+        System.out.printf("gcd = %d%n", new EuclidesOne().gcd(49, 640));
+    }
+
     int gcd(int r0, int r1)
     {
         int divd = r0;
@@ -18,10 +23,5 @@ public class EuclidesOne {
             divs = remainder;
         } while (remainder > 0);
         return divd;
-    }
-
-    public static void main(String[] args)
-    {
-        System.out.printf("gcd = %d%n", new EuclidesOne().gcd(49,640));
     }
 }

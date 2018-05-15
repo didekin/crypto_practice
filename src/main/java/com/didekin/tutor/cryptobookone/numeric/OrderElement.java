@@ -11,8 +11,8 @@ import static java.math.BigInteger.valueOf;
  * User: pedro
  * Date: 16/07/16
  * Time: 18:16
-
-
+ * <p>
+ * <p>
  * This class calculates the order of the elements of a prime field.
  */
 public class OrderElement {

@@ -7,6 +7,12 @@ package com.didekin.tutor.cryptobookone.computation;
  */
 public class EuclidesExtended {
 
+    public static void main(String[] args)
+    {
+        Result result = new EuclidesExtended().gcd(973, 301);
+        System.out.printf("gcd = %d  s = %d  t = %d %n", result.gcd, result.s, result.t);
+    }
+
     Result gcd(int r0, int r1)
     {
         int divd = r0;
@@ -44,12 +50,6 @@ public class EuclidesExtended {
             this.s = s;
             this.t = t;
         }
-    }
-
-    public static void main(String[] args)
-    {
-        Result result = new EuclidesExtended().gcd(973, 301);
-        System.out.printf("gcd = %d  s = %d  t = %d %n", result.gcd, result.s, result.t);
     }
 
 }

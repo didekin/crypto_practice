@@ -19,7 +19,8 @@ public class BigIntDuple {
         this.y = y;
     }
 
-    public BigIntDuple sumPoint(BigIntDuple point2, Polynomial polynomial, BigInteger modulo){
+    public BigIntDuple sumPoint(BigIntDuple point2, Polynomial polynomial, BigInteger modulo)
+    {
         return EllipticCurveSum.sumPoints(this, point2, polynomial, modulo);
     }
 
@@ -27,7 +28,7 @@ public class BigIntDuple {
     @Override
     public boolean equals(Object obj)
     {
-        if (obj instanceof BigIntDuple){
+        if (obj instanceof BigIntDuple) {
             return false;
         }
         BigIntDuple intDuple = (BigIntDuple) obj;

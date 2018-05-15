@@ -8,7 +8,7 @@ import static com.didekin.tutor.cryptobookone.pad.OneTimePad.generateByteArrayKe
 import static com.didekin.tutor.cryptobookone.pad.OneTimePad.generateHexStringKey;
 import static com.didekin.tutor.cryptobookone.pad.OneTimePad.generateIntArrayKey;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * User: pedro@didekin
@@ -22,13 +22,13 @@ public class OneTimePadTest {
     {
         String plainText = "holacrypto";
         byte[] key = generateByteArrayKey(plainText.length());
-        assertThat(deencryptString(encryptBytesString(plainText,key), key), is(plainText));
+        assertThat(deencryptString(encryptBytesString(plainText, key), key), is(plainText));
     }
 
     @Test
     public void test_GenerateIntArrayKey() throws Exception
     {
-       assertThat(generateIntArrayKey(9).length, is(9));
+        assertThat(generateIntArrayKey(9).length, is(9));
     }
 
     @Test

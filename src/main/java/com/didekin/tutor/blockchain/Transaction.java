@@ -16,79 +16,16 @@ import static java.util.Arrays.copyOf;
 public class Transaction {
 
     /**
-     * A transaction input consists of:
-     * -- the hash of the (previous) transaction that contains the corresponding output.
-     * -- the index of this output in that (previous) transaction (indices are simply integers starting from 0).
-     * -- a digital signature.
-     */
-    public class Input {
-        /**
-         * hash of the com.didekin.tutor.blockchain.Transaction whose output is being claimed or used.
-         */
-        public byte[] prevTxHash;
-        /**
-         * used output's index by this input.
-         */
-        public int outputIndex;
-        /**
-         * The signature produced to check validity of the input. For the input to be valid, it has to have been signed by the SK associated to the PK in the output claimed by the input.
-         * The signature, therefore, must validated over the current transaction with the public key in the spent/claimed output, which is the PK of the owner of this input.
-         */
-        public byte[] signature;
-
-        Input(byte[] prevHash, int index)
-        {
-            if (prevHash == null)
-                prevTxHash = null;
-            else
-                prevTxHash = copyOf(prevHash, prevHash.length);
-            outputIndex = index;
-        }
-
-        void addSignature(byte[] sig)
-        {
-            if (sig == null)
-                signature = null;
-            else {
-                signature = copyOf(sig, sig.length);
-            }
-        }
-    }
-
-    /**
-     * A transaction output consists of: a value and a public key to which it is being paid.
-     */
-    public class Output {
-        /**
-         * value in bitcoins of the output
-         */
-        public double value;
-        /**
-         * the address or public key of the recipient. This is the PK corresponding to the SK used to sign the input which claimed this output.
-         * The recipient of this output, owner of the output and this PK, signed with his SK over the TX with the input which claims/spends this output and the outputs which result of the spenditure of the input.
-         */
-        public PublicKey address;
-
-        Output(double v, PublicKey addr)
-        {
-            value = v;
-            address = addr;
-        }
-    }
-
-    /**
      * hash of the transaction, its unique ID.
      */
     private byte[] hash;
     private ArrayList<Input> inputs;
     private ArrayList<Output> outputs;
-
     public Transaction()
     {
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
     }
-
     public Transaction(Transaction tx)
     {
         hash = tx.hash.clone();
@@ -126,7 +63,7 @@ public class Transaction {
     }
 
     /**
-     *  Return an array of bytes with the input to be signed and ALL the outputs of the TX containing the input.
+     * Return an array of bytes with the input to be signed and ALL the outputs of the TX containing the input.
      */
     public byte[] getRawDataToSign(int indexInputToBeSigned)
     {
@@ -232,14 +169,14 @@ public class Transaction {
         }
     }
 
-    public void setHash(byte[] h)
-    {
-        hash = h;
-    }
-
     public byte[] getHash()
     {
         return hash;
+    }
+
+    public void setHash(byte[] h)
+    {
+        hash = h;
     }
 
     public ArrayList<Input> getInputs()
@@ -276,5 +213,66 @@ public class Transaction {
     public int numOutputs()
     {
         return outputs.size();
+    }
+
+    /**
+     * A transaction input consists of:
+     * -- the hash of the (previous) transaction that contains the corresponding output.
+     * -- the index of this output in that (previous) transaction (indices are simply integers starting from 0).
+     * -- a digital signature.
+     */
+    public class Input {
+        /**
+         * hash of the com.didekin.tutor.blockchain.Transaction whose output is being claimed or used.
+         */
+        public byte[] prevTxHash;
+        /**
+         * used output's index by this input.
+         */
+        public int outputIndex;
+        /**
+         * The signature produced to check validity of the input. For the input to be valid, it has to have been signed by the SK associated to the PK in the output claimed by the input.
+         * The signature, therefore, must validated over the current transaction with the public key in the spent/claimed output, which is the PK of the owner of this input.
+         */
+        public byte[] signature;
+
+        Input(byte[] prevHash, int index)
+        {
+            if (prevHash == null)
+                prevTxHash = null;
+            else
+                prevTxHash = copyOf(prevHash, prevHash.length);
+            outputIndex = index;
+        }
+
+        void addSignature(byte[] sig)
+        {
+            if (sig == null)
+                signature = null;
+            else {
+                signature = copyOf(sig, sig.length);
+            }
+        }
+    }
+
+    /**
+     * A transaction output consists of: a value and a public key to which it is being paid.
+     */
+    public class Output {
+        /**
+         * value in bitcoins of the output
+         */
+        public double value;
+        /**
+         * the address or public key of the recipient. This is the PK corresponding to the SK used to sign the input which claimed this output.
+         * The recipient of this output, owner of the output and this PK, signed with his SK over the TX with the input which claims/spends this output and the outputs which result of the spenditure of the input.
+         */
+        public PublicKey address;
+
+        Output(double v, PublicKey addr)
+        {
+            value = v;
+            address = addr;
+        }
     }
 }

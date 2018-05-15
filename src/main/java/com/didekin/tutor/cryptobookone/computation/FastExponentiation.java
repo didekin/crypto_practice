@@ -24,6 +24,17 @@ public class FastExponentiation {
         this.base = base;
     }
 
+    public static void main(String[] args)
+    {
+        BigInteger baseIn = BigInteger.valueOf(3);
+        BigInteger exponentIn = BigInteger.valueOf(197);
+        BigInteger modulusIn = BigInteger.valueOf(101);
+
+        FastExponentiation exponentiation = new FastExponentiation(exponentIn, modulusIn, baseIn);
+        System.out.printf("%nMy exponentiation = %d  javaExp = %d%n", exponentiation.exponentiate(),
+                baseIn.modPow(exponentIn, modulusIn));
+    }
+
     BigInteger exponentiate()
     {
         String bitString = exponent.toString(2);
@@ -35,16 +46,5 @@ public class FastExponentiation {
             }
         }
         return exponentiation;
-    }
-
-    public static void main(String[] args)
-    {
-        BigInteger baseIn = BigInteger.valueOf(3);
-        BigInteger exponentIn = BigInteger.valueOf(197);
-        BigInteger modulusIn = BigInteger.valueOf(101);
-
-        FastExponentiation exponentiation = new FastExponentiation(exponentIn, modulusIn, baseIn);
-        System.out.printf("%nMy exponentiation = %d  javaExp = %d%n", exponentiation.exponentiate(),
-                baseIn.modPow(exponentIn, modulusIn));
     }
 }

@@ -7,6 +7,16 @@ package com.didekin.tutor.cryptobookone.computation;
  */
 public class EuclidesInverse {
 
+    public static void main(String[] args)
+    {
+        int r1 = 49;
+        int mod = 640;
+        Result result = new EuclidesInverse().gcd(mod, r1);
+        System.out.printf("gcd = %d  inverse = %d %n", result.gcd, result.t > 0 ? result.t : result.t + mod);
+        int verification = (r1 * result.t) % mod;
+        System.out.printf("Verification = %d%n", verification > 0 ? verification : verification + mod);
+    }
+
     Result gcd(int r0, int r1)
     {
         int divd = r0;
@@ -25,9 +35,9 @@ public class EuclidesInverse {
             t0 = t1;
             t1 = t2;
         }
-        if (divs == 1){
+        if (divs == 1) {
             return new Result(divs, t1 % r0);
-        }else{
+        } else {
             return new Result(divs, -9999);
         }
 
@@ -43,15 +53,5 @@ public class EuclidesInverse {
             this.gcd = gcd;
             this.t = t;
         }
-    }
-
-    public static void main(String[] args)
-    {
-        int r1 = 49;
-        int mod = 640;
-        Result result = new EuclidesInverse().gcd(mod, r1);
-        System.out.printf("gcd = %d  inverse = %d %n", result.gcd, result.t > 0 ? result.t : result.t + mod);
-        int verification =  (r1 * result.t) % mod;
-        System.out.printf("Verification = %d%n", verification > 0 ? verification : verification + mod);
     }
 }

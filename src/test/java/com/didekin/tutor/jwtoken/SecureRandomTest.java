@@ -1,4 +1,4 @@
-package com.didekin.tutor.cipher;
+package com.didekin.tutor.jwtoken;
 
 import org.junit.Test;
 
@@ -17,15 +17,17 @@ import static org.junit.Assert.assertThat;
 public class SecureRandomTest {
 
     @Test
-    public void test_ToString_1(){
+    public void test_ToString_1()
+    {
         final BigInteger pswdInteger = new BigInteger(65, new SecureRandom());
         System.out.println(pswdInteger.toString(36));
         assertThat(PASSWORD.isPatternOk(pswdInteger.toString(36)), is(true));
     }
 
     @Test
-    public void test_ToString_2(){
-        for(int i = 0; i < 20000; ++i){
+    public void test_ToString_2()
+    {
+        for (int i = 0; i < 20000; ++i) {
             final String fieldToCheck = new BigInteger(65, new SecureRandom()).toString(36);
 //            System.out.println(fieldToCheck);
             assertThat(PASSWORD.isPatternOk(fieldToCheck), is(true));

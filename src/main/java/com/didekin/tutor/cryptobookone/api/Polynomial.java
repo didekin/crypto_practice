@@ -7,6 +7,8 @@ package com.didekin.tutor.cryptobookone.api;
  */
 public interface Polynomial {
     int check(BigIntDuple point);
+
     int xCoefficient();
+
     int bCoefficient();
 }

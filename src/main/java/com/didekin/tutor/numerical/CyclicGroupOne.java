@@ -27,6 +27,19 @@ public class CyclicGroupOne {
         orderGroupDivisors = getOrderDivisors();
     }
 
+    public static void main(String[] args)
+    {
+        CyclicGroupOne groupOne = new CyclicGroupOne(28);
+        System.out.printf("%d units:%n", groupOne.units.size());
+        groupOne.units.forEach(System.out::println);
+        System.out.printf("%d divisors:%n", groupOne.orderGroupDivisors.size());
+        groupOne.orderGroupDivisors.forEach(System.out::println);
+
+        List<BigInteger> generators = groupOne.getGenerators();
+        System.out.printf("%d generators:%n", generators.size());
+        generators.forEach(System.out::println);
+    }
+
     private List<BigInteger> getUnits(int moduloGroup)
     {
         List<BigInteger> units = new ArrayList<>(moduloGroup);
@@ -65,24 +78,11 @@ public class CyclicGroupOne {
                         && !divisor.equals(orderGroupBig)) {
                     break;
                 }
-                if (divisor.equals(orderGroupBig)){
+                if (divisor.equals(orderGroupBig)) {
                     generators.add(unit);
                 }
             }
         }
         return generators;
-    }
-
-    public static void main(String[] args)
-    {
-        CyclicGroupOne groupOne = new CyclicGroupOne(28);
-        System.out.printf("%d units:%n", groupOne.units.size());
-        groupOne.units.forEach(System.out::println);
-        System.out.printf("%d divisors:%n", groupOne.orderGroupDivisors.size());
-        groupOne.orderGroupDivisors.forEach(System.out::println);
-
-        List<BigInteger> generators = groupOne.getGenerators();
-        System.out.printf("%d generators:%n", generators.size());
-        generators.forEach(System.out::println);
     }
 }

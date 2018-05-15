@@ -32,10 +32,10 @@ public class DecryptAffine {
 
         for (int i = 0; i < encryptedStr.length(); ++i) {
             charInProcess = encryptedStr.charAt(i);
-            encryptPosition = Arrays.binarySearch(abecedario,encryptedStr.charAt(i));
+            encryptPosition = Arrays.binarySearch(abecedario, encryptedStr.charAt(i));
             decrypPosition = (inverseShift * (encryptPosition - jump)) % modulus;
             decrypPosition = decrypPosition >= 0 ? decrypPosition : decrypPosition + modulus;
-            decryptedChar =  abecedario[decrypPosition];
+            decryptedChar = abecedario[decrypPosition];
             decryptedChars[i] = decryptedChar;
             System.out.printf("%s", charInProcess);
         }

@@ -44,7 +44,7 @@ public class Elgamal {
         for (int i = 2; i < p.subtract(ONE).intValue(); i++) {
             ephemeralKey = alpha.modPow(valueOf(i), p);
             encryptedText = encrypt(p, alpha, beta, valueOf(i), x);
-            if (!ciphers.contains(encryptedText)){
+            if (!ciphers.contains(encryptedText)) {
                 ciphers.add(encryptedText);
             }
         }

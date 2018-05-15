@@ -12,17 +12,27 @@ import static java.math.BigInteger.valueOf;
  * User: pedro
  * Date: 12/07/16
  * Time: 19:33
- *
+ * <p>
  * Factorization method based on Davenport page 34.
  */
 public class FactorizationMethod {
 
-    private List<BigInteger> factors;
     private static final BigInteger two = ONE.add(ONE);
+    private List<BigInteger> factors;
 
     private FactorizationMethod()
     {
         factors = new ArrayList<>(2);
+    }
+
+    public static void main(String[] args)
+    {
+        FactorizationMethod factorization = new FactorizationMethod();
+        factorization.factorOddInteger(valueOf(52));
+        int i = 0;
+        for (BigInteger factor : factorization.factors) {
+            System.out.printf("factor %d : %d %n", ++i, factor);
+        }
     }
 
     private void factorEvenInteger(final BigInteger number)
@@ -75,16 +85,6 @@ public class FactorizationMethod {
             factors.add(complementFactor);
         } else {
             factorOddInteger(complementFactor);
-        }
-    }
-
-    public static void main(String[] args)
-    {
-        FactorizationMethod factorization = new FactorizationMethod();
-        factorization.factorOddInteger(valueOf(52));
-        int i = 0;
-        for (BigInteger factor : factorization.factors) {
-            System.out.printf("factor %d : %d %n", ++i, factor);
         }
     }
 }

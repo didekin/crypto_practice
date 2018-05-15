@@ -16,9 +16,15 @@ public class EuclidAlg {
         this.least = least;
     }
 
+    public static void main(String[] args)
+    {
+        EuclidAlg instance = new EuclidAlg(355, 113);
+        System.out.printf("HCF of %d and %d is: %d%n", instance.greatest, instance.least, instance.getHighestCommonDivisor());
+    }
+
     int getHighestCommonDivisor()
     {
-        if (least > greatest){
+        if (least > greatest) {
             throw new IllegalArgumentException("Wrong magnitudes");
         }
 
@@ -31,12 +37,6 @@ public class EuclidAlg {
             divisor = remainder > 0 ? remainder : divisor;
         }
         while (remainder > 0);
-        return  divisor;
-    }
-
-    public static void main(String[] args)
-    {
-        EuclidAlg instance = new EuclidAlg(355, 113);
-        System.out.printf("HCF of %d and %d is: %d%n", instance.greatest, instance.least, instance.getHighestCommonDivisor());
+        return divisor;
     }
 }

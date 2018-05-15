@@ -23,7 +23,7 @@ public class FiveTuple {
     @Override
     public String toString()
     {
-        return String.format("(%s,%s,%s,%s,%s)%n", a.toString(16),b.toString(16),c.toString(16),
-                d.toString(16),e.toString(16));
+        return String.format("(%s,%s,%s,%s,%s)%n", a.toString(16), b.toString(16), c.toString(16),
+                d.toString(16), e.toString(16));
     }
 }

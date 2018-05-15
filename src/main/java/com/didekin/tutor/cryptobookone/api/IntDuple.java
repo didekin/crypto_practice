@@ -7,7 +7,7 @@ package com.didekin.tutor.cryptobookone.api;
  */
 public class IntDuple {
 
-     private final int x,y;
+    private final int x, y;
 
     public IntDuple(int x, int y)
     {
@@ -28,7 +28,7 @@ public class IntDuple {
     @Override
     public boolean equals(Object obj)
     {
-        if (obj instanceof IntDuple){
+        if (obj instanceof IntDuple) {
             return false;
         }
         IntDuple outDuple = IntDuple.class.cast(obj);

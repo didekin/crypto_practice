@@ -12,7 +12,7 @@ public class Factorial {
     private static BigInteger getFactorial(BigInteger number)
     {
         BigInteger factorial = number;
-        for (int i = number.intValue()-1; i > 0; --i) {
+        for (int i = number.intValue() - 1; i > 0; --i) {
             factorial = factorial.multiply(BigInteger.valueOf(i));
         }
         return factorial;

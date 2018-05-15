@@ -30,7 +30,7 @@ public class Sha1Round {
 
     static FiveTuple computeRound(BigInteger wordInRound)
     {
-         return new FiveTuple(doAcomponentInRound(wordInRound),a,b.shiftLeft(30),c,d);
+        return new FiveTuple(doAcomponentInRound(wordInRound), a, b.shiftLeft(30), c, d);
     }
 
     // Computation for A element in the five tuple resulting from  a round.
