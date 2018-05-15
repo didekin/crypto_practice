@@ -7,10 +7,10 @@ package com.didekin.tutor.numerical;
  */
 public class EuclidAlg {
 
-    final int greatest;
-    final int least;
+    private final int greatest;
+    private final int least;
 
-    public EuclidAlg(int greatest, int least)
+    EuclidAlg(int greatest, int least)
     {
         this.greatest = greatest;
         this.least = least;

@@ -6,7 +6,7 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
 
-public class Crypto {
+class Crypto {
 
     /**
      * This method takes a public key, a message and a signature, and returns true if and only signature
@@ -17,7 +17,7 @@ public class Crypto {
      *         have to deal with any of the implementation details of the specific signature
      *         algorithm
      */
-    public static boolean verifySignature(PublicKey pubKey, byte[] message, byte[] signature) {
+    static boolean verifySignature(PublicKey pubKey, byte[] message, byte[] signature) {
         Signature sig = null;
         try {
             sig = Signature.getInstance("SHA256withRSA");

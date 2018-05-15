@@ -23,7 +23,7 @@ public class Transaction {
      */
     public class Input {
         /**
-         * hash of the Transaction whose output is being claimed or used.
+         * hash of the com.didekin.tutor.blockchain.Transaction whose output is being claimed or used.
          */
         public byte[] prevTxHash;
         /**

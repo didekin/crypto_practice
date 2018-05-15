@@ -3,7 +3,6 @@ package com.didekin.tutor.blockchain;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import static com.didekin.tutor.blockchain.Crypto.verifySignature;
 import static java.util.Arrays.copyOf;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -12,8 +11,8 @@ public class TxHandler {
     private final UTXOPool utxoPool;
 
     /**
-     * Creates a public ledger whose current UTXOPool (collection of unspent transaction outputs) is
-     * {@code utxoPool}. This should make a copy of utxoPool by using the UTXOPool(UTXOPool uPool)
+     * Creates a public ledger whose current com.didekin.tutor.blockchain.UTXOPool (collection of unspent transaction outputs) is
+     * {@code utxoPool}. This should make a copy of utxoPool by using the com.didekin.tutor.blockchain.UTXOPool(com.didekin.tutor.blockchain.UTXOPool uPool)
      * constructor.
      */
     public TxHandler(UTXOPool up)
@@ -25,17 +24,17 @@ public class TxHandler {
     /**
      * Returns true if
      * INPUTS:
-     * (1) no UTXO is claimed multiple times by tx
-     * (2) all outputs claimed by tx are in the current UTXO pool
+     * (1) no com.didekin.tutor.blockchain.UTXO is claimed multiple times by tx
+     * (2) all outputs claimed by tx are in the current com.didekin.tutor.blockchain.UTXO pool
      * (3) the signatures on each input of tx are valid. The raw data that are used to verify the signature are obtained from the getRawDataToSign(int index) method.
      * OUTPUTS:
-     * (4) all of tx’s output values are non-negative
+     * (4) all of tXs output values are non-negative
      * INPUTS/OUTPUTS:
-     * (5) the sum of tx’s input values is greater than or equal to the sum of its output values.
+     * (5) the sum of tXs input values is greater than or equal to the sum of its output values.
      * <p>
-     * // assuming all utxo's required by this transaction will be in utxo pool
+     * // assuming all UTXOs required by this transaction will be in utxo pool
      * <p>
-     * To verify a signature, you will use the verifySignature() method included in the provided file Crypto.java
+     * To verify a signature, you will use the verifySignature() method included in the provided file com.didekin.tutor.blockchain.Crypto.java
      */
 
     public boolean isValidTx(Transaction txToValidate)
@@ -55,7 +54,7 @@ public class TxHandler {
             if (outPutClaimByInput == null)
                 return false;
             // Check signature of the input.
-            if (!verifySignature(outPutClaimByInput.address, txToValidate.getRawDataToSign(i), eachInputInTx.signature)) {
+            if (!Crypto.verifySignature(outPutClaimByInput.address, txToValidate.getRawDataToSign(i), eachInputInTx.signature)) {
                 return false;
             }
             // If every check for the input is OK, add the value of the output claimed by the input to the total output value accumulated for the TX.
@@ -91,12 +90,12 @@ public class TxHandler {
     private void updatePool(Transaction tx)
     {
         for (int i = 0; i < tx.getInputs().size(); i++) {
-            // Outputs claimed/spent in input of TX is considered spent and removed from UTXOPool.
+            // Outputs claimed/spent in input of TX is considered spent and removed from com.didekin.tutor.blockchain.UTXOPool.
             utxoPool.removeUTXO(new UTXO(tx.getInput(i).prevTxHash, tx.getInput(i).outputIndex));
         }
         for (int i = 0; i < tx.getOutputs().size(); i++) {
-            // Outputs in TX are considered unspent and their values are added to UTXOPool.
-            // ¡¡¡¡ Total input value (output claimed/spent) - total outputs values is NOT considered unspent value but transaction fee. ¡¡¡¡
+            // Outputs in TX are considered unspent and their values are added to com.didekin.tutor.blockchain.UTXOPool.
+            // Total input value (output claimed/spent) - total outputs values is NOT considered unspent value but transaction fee.
             utxoPool.addUTXO(new UTXO(tx.getHash(), i), tx.getOutput(i));
         }
     }
@@ -104,9 +103,9 @@ public class TxHandler {
     /**
      * Handles each epoch by receiving an unordered array of proposed transactions, checking each
      * transaction for correctness, returning a mutually valid array of accepted transactions, and
-     * updating the current UTXO pool as appropriate.
+     * updating the current com.didekin.tutor.blockchain.UTXO pool as appropriate.
      * <p>
-     * Based on the transactions it has chosen to accept, handleTxs() should also update its internal UTXOPool to reflect
+     * Based on the transactions it has chosen to accept, handleTxs() should also update its internal com.didekin.tutor.blockchain.UTXOPool to reflect
      * the current set of unspent transaction outputs, so that future calls to handleTxs() and isValidTx() are able to
      * correctly process/validate transactions that claim outputs from transactions that were accepted in a previous call to handleTxs().
      */
@@ -130,12 +129,12 @@ public class TxHandler {
             tXwithoutUXTOCounterInRound = 0;
             // Handle each transaction in the TXs array passed to the method.
             for (Transaction tXsToBeHandled : poolTXsToBeHandled) {
-                // Check if there is a UTXO in the ledger (UTXOPool) associated to the output of each of the inputs in the TX.
+                // Check if there is a com.didekin.tutor.blockchain.UTXO in the ledger (com.didekin.tutor.blockchain.UTXOPool) associated to the output of each of the inputs in the TX.
                 if (inPool(tXsToBeHandled)) {
-                    // If there are the necessary UTXO, check if the TX is valid.
+                    // If there are the necessary com.didekin.tutor.blockchain.UTXO, check if the TX is valid.
                     if (isValidTx(tXsToBeHandled)) {
                         change = true;
-                        // Updates UTXO pool: Remove the UTXOs associated to all the inputs in TX and add one UTXO for each of the outputs in TX.
+                        // Updates com.didekin.tutor.blockchain.UTXO pool: Remove the UTXOs associated to all the inputs in TX and add one com.didekin.tutor.blockchain.UTXO for each of the outputs in TX.
                         updatePool(tXsToBeHandled);
                         // Copy TX to array of successfully handled TXs and increment counter of successfully handled TXs.
                         successfullHandledTxs[updatedSuccessCounterAfterRound++] = tXsToBeHandled;
@@ -146,8 +145,8 @@ public class TxHandler {
                 }
             }
 
-            // Once I handled successfully a first bunch of TXs, with matching UTXO in pool, fresh new UXTOs may have been added to the pool, corresponding to the outputs of successful handled TXs.
-            // New rounds of handling of unsuccessful handled TXs are done, until 'change = false': not more valid transactions have been handle which may have updated UTXO in the pool.
+            // Once I handled successfully a first bunch of TXs, with matching com.didekin.tutor.blockchain.UTXO in pool, fresh new UXTOs may have been added to the pool, corresponding to the outputs of successful handled TXs.
+            // New rounds of handling of unsuccessful handled TXs are done, until 'change = false': not more valid transactions have been handle which may have updated com.didekin.tutor.blockchain.UTXO in the pool.
             if (change) {
                 poolTXsToBeHandled = copyOf(txWithoutUTXOArr, txWithoutUTXOArr.length);
             } else {
